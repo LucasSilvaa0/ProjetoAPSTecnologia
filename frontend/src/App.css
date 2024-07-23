@@ -1,0 +1,26 @@
+
+body {
+  text-align: center;
+  background-color: rgb(126, 220, 126);
+}
+
+.Titulo {
+  font: 26px italic normal;
+  color: rgb(66, 66, 124);
+}
+
+.Botoes {
+  padding-top: 80px;
+  padding-left: 25px;
+}
+
+.Botao {
+  height: 50px;
+  width: 130px;
+}
+
+.About {
+  padding-top: 70px;
+  padding-bottom: 50px;
+}
+
