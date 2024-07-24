@@ -1,0 +1,20 @@
+body {
+    text-align: center;
+    background-color: rgb(126, 220, 126);
+}
+
+.Titulo {
+    font: 27px italic normal;
+    color: rgb(112, 112, 187);
+}
+
+.About {
+    padding-top: 6px;
+    padding-left: 30px;
+    text-align: left;
+    height: 130px;
+    width: 350px;
+    border-top-right-radius: 30%;
+    border-bottom-right-radius: 30%;
+    background-color: rgb(230, 82, 82);
+}
