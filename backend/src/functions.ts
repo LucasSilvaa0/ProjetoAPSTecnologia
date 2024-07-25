@@ -1,4 +1,4 @@
-
+import connection from './db';
 import axios from "axios";
 
 export interface CepData {
@@ -42,3 +42,16 @@ export async function validateCNPJ(cnpj: string) {
         return null
     }
 };
+
+export function newClient(listnewUser: any) {
+    try {
+        connection.query('INSERT INTO users (cnpj, nome, apelido, cep, logradouro, bairro, cidade, uf, complemento, email, telefone, senha) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', listnewUser, (err, result) => {
+          if (err) {
+            return;
+          }
+          return 'Usuário criado com sucesso'
+        });
+      } finally {
+        return null
+      }
+}

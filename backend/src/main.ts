@@ -1,8 +1,7 @@
 import express, { type Request, type Response, type Application } from "express";
 import { zodMiddleware } from "./middlewares/zod.middleware";
-import connection from './db';
 import { UserSchema, User } from "./models"
-import { fetchCep, CepData, validateCNPJ } from "./functions"
+import { fetchCep, CepData, validateCNPJ, newClient } from "./functions"
 import { z } from "zod";
 
 const app: Application = express();
@@ -15,6 +14,8 @@ app.get("/", (_req: Request, res: Response) => {
 
 app.post("/new_user", async (req: Request, res: Response) => {
   const newU: User = req.body;
+
+  console.log(req.body)
 
   const data = await fetchCep(newU.cep);
   if (data == null) {
@@ -54,17 +55,7 @@ app.post("/new_user", async (req: Request, res: Response) => {
     return
   }
 
-  res.send("tudo certo.")
-
-  console.log(listnewUser)
-
-  connection.query('INSERT INTO users (cnpj, nome, apelido, cep, logradouro, bairro, cidade, uf, complemento, email, telefone, senha) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', listnewUser, (err, result) => {
-    if (err) {
-      return;
-    }
-    res.send('Usuário criado com sucesso')
-  });
-
+  newClient(listnewUser)
 });
 
 app.use(zodMiddleware);
