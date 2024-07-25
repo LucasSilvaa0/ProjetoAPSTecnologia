@@ -1,20 +1,20 @@
-import mysql from 'mysql';
+import mysql from 'mysql2';
 
 const dbConfig = {
   host: 'localhost',
-  user: 'seu_usuario',
-  password: 'sua_senha',
-  database: 'nome_do_banco',
+  user: 'root',
+  password: 'Admin#123',
+  database: 'meu_app',
 };
 
 const connection = mysql.createConnection(dbConfig);
 
-connection.connect((err) => {
+connection.connect(err => {
   if (err) {
-    console.error('Erro ao conectar ao MySQL:', err);
-    return;
+      return console.error('Erro ao conectar ao banco de dados: ' + err.message);
   }
-  console.log('Conexão com MySQL estabelecida.');
+  console.log('Conectado ao banco de dados.');
 });
+
 
 export default connection;

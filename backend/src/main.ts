@@ -14,47 +14,57 @@ app.get("/", (_req: Request, res: Response) => {
 });
 
 app.post("/new_user", async (req: Request, res: Response) => {
-  const newUser: User = req.body;
+  const newU: User = req.body;
 
-  const data = await fetchCep(newUser.cep);
+  const data = await fetchCep(newU.cep);
   if (data == null) {
     res.status(400).json({ error: 'Dados inválidos' });
     return;
   }
 
-  //const validcnpj = await validateCNPJ(newUser.cnpj);
+  const validcnpj = await validateCNPJ(newU.cnpj);
 
-  res.send("tudo certo.")
   //console.log(validcnpj)
 
-  try {
-    UserSchema.parse({
-      cnpj: newUser.cnpj,
-      nome: newUser.nome,
-      apelido: newUser.apelido,
-      cep: newUser.cep,
-      logradouro: data.logradouro,
-      bairro: data.bairro,
-      cidade: data.logradouro,
-      uf: data.uf,
-      complemento: data.complemento,
-      email: newUser.email,
-      telefone: newUser.telefone
-    }); // valida o novo usuário
-  } catch (error) {
-    res.status(400).json({ error: 'Dados inválidos' });
-    return;
+  const newUser = {...newU, ...data, cidade:data.localidade}
+
+  const listnewUser = [
+    newU.cnpj,
+    newU.nome,
+    newU.apelido,
+    newU.cep,
+    data.logradouro,
+    data.bairro,
+    data.localidade,
+    data.uf,
+    data.complemento,
+    newU.email,
+    newU.telefone,
+    newU.senha
+  ]
+
+  if (validcnpj != null) {
+    try {
+      UserSchema.parse(newUser); // valida o novo usuário
+    } catch (error) {
+      return res.status(400).json({ error: 'Dados inválidos' })
+    }
+  } else {
+    //res.status(400).json({ error: 'Dados inválidos' })
+    return
   }
 
-  /*
-  connection.query('INSERT INTO users SET ?', newUser, (err, result) => {
+  res.send("tudo certo.")
+
+  console.log(listnewUser)
+
+  connection.query('INSERT INTO users (cnpj, nome, apelido, cep, logradouro, bairro, cidade, uf, complemento, email, telefone, senha) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', listnewUser, (err, result) => {
     if (err) {
-      console.error('Erro ao inserir usuário:', err);
-      res.status(500).json({ error: 'Erro ao inserir usuário' });
       return;
     }
-    res.json({ message: 'Usuário criado com sucesso', newUser });
-  });*/
+    res.send('Usuário criado com sucesso')
+  });
+
 });
 
 app.use(zodMiddleware);

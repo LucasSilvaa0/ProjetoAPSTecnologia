@@ -32,13 +32,13 @@ export async function fetchCep(cep: string) : Promise<CepData | null> {
 
 export async function validateCNPJ(cnpj: string) {
     try {
-        const response = await fetch(`https://www.cnpj.ws/${cnpj}`);
+        const response = await fetch(`https://publica.cnpj.ws/cnpj/${cnpj}`);
         if (!response.ok) {
             throw new Error('Erro ao validar CNPJ na Receita WS');
         }
         const validcnpj = await response.json();
         return validcnpj;
     } catch (error) {
-        throw new Error('Erro ao validar CNPJ na Receita WS');
+        return null
     }
 };
