@@ -1,4 +1,4 @@
-import styles from "./newclient.module.css"
+import styles from "./new_delclient.module.css"
 import { useState } from "react"
 import axios from "axios"
 
@@ -25,29 +25,10 @@ function NewClient() {
                 cep,
                 telefone
             }
-            
-            const formData = new FormData();
-            formData.append('nome', nome);
-            formData.append('apelido', apelido);
-            formData.append('email', email);
-            formData.append('senha', senha);
-            formData.append('cnpj', cnpj);
-            formData.append('cep', cep);
-            formData.append('telefone', telefone);
-
-            /*
-                window.alert(nome)
-                window.alert(apelido)
-                window.alert(senha)
-                window.alert(email)
-                window.alert(cnpj)
-                window.alert(cep)
-                window.alert(telefone)
-            */
 
             const response = await axios.post('http://localhost:5000/new_user', usuario)
             
-            if (response.ok) {
+            if (response.data === "OK") {
                 window.alert("USUÁRIO CADASTRADO COM SUCESSO!")
             } else {
                 window.alert("ERRO NOS DADOS DO CADASTRO DO USUÁRIO!")

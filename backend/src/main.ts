@@ -1,7 +1,7 @@
 import express, { type Request, type Response, type Application } from "express";
 import { zodMiddleware } from "./middlewares/zod.middleware";
 import { UserSchema, User } from "./models"
-import { fetchCep, CepData, validateCNPJ, newClient } from "./functions"
+import { fetchCep, validateCNPJ, newClient, delClient } from "./functions"
 import { z } from "zod";
 
 const app: Application = express();
@@ -29,8 +29,6 @@ app.post("/new_user", async (req: Request, res: Response) => {
 
   const validcnpj = await validateCNPJ(newU.cnpj);
 
-  //console.log(validcnpj)
-
   const newUser = {...newU, ...data, cidade:data.localidade}
 
   const listnewUser = [
@@ -55,12 +53,20 @@ app.post("/new_user", async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'Dados inválidos' })
     }
   } else {
-    //res.status(400).json({ error: 'Dados inválidos' })
-    return
+    return res.status(400).json({ error: 'Dados inválidos' })
   }
 
   newClient(listnewUser)
+  res.send("OK")
+});
+
+app.delete("/del_user", async (req: Request, res: Response) => {
+  const user = req.body;
   
+  console.log(req.body)
+  
+  delClient(user.email, user.senha)
+  res.send("OK")
 });
 
 app.use(zodMiddleware);

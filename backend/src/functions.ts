@@ -55,3 +55,16 @@ export function newClient(listnewUser: any) {
         return null
       }
 }
+
+export function delClient(email:string, senha:string) {
+    try {
+        connection.query('DELETE FROM users WHERE (email, senha) = (?, ?)', [email, senha], (err, result) => {
+            if (err) {
+                return;
+            }
+            return 'Usuário deletado com sucesso'
+        });
+    } finally {
+        return null
+    }
+}
