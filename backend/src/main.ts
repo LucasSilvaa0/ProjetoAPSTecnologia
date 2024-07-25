@@ -5,18 +5,22 @@ import { fetchCep, CepData, validateCNPJ, newClient } from "./functions"
 import { z } from "zod";
 
 const app: Application = express();
+const bodyParser = require('body-parser');
+const cors = require('cors');
 
 app.use(express.json());
+app.use(bodyParser.json());
+app.use(cors());
 
 app.get("/", (_req: Request, res: Response) => {
   res.send("Hello World!");
 });
 
 app.post("/new_user", async (req: Request, res: Response) => {
-  const newU: User = req.body;
-
+  const newU = req.body;
+  
   console.log(req.body)
-
+  
   const data = await fetchCep(newU.cep);
   if (data == null) {
     res.status(400).json({ error: 'Dados inválidos' });
@@ -56,6 +60,7 @@ app.post("/new_user", async (req: Request, res: Response) => {
   }
 
   newClient(listnewUser)
+  
 });
 
 app.use(zodMiddleware);

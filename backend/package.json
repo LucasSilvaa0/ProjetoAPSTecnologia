@@ -18,6 +18,7 @@
   "dependencies": {
     "@types/mysql": "^2.15.26",
     "axios": "^1.7.2",
+    "body-parser": "^1.20.2",
     "consultar-cnpj": "^1.0.19",
     "cors": "^2.8.5",
     "express": "^4.19.2",
@@ -25,5 +26,12 @@
     "mysql2": "^3.10.3",
     "node-fetch": "^3.3.2",
     "zod": "^3.23.8"
-  }
+  },
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
