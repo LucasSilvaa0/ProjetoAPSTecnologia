@@ -6,6 +6,11 @@
     text-align: center;
 }
 
+.Inputs {
+    text-align: left;
+    padding-left: 38%;
+}
+
 .Usuario {
     width: 900px;
     background-color: rgb(68, 64, 64);

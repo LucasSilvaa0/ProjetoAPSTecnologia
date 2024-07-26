@@ -22,9 +22,7 @@ export default function App() {
     pagina = <><h1>ESSA PÁGINA É PARA ADICIONAR UM CLIENTE NOVO</h1><NewClient /></>
   } else if (`${vallink}` === "http://localhost:3000/list_client") {
     pagina = <><h1>ESSA É A LISTA DE TODOS OS USUÁRIOS</h1><ClientList/></>
-  } else if (`${vallink}` === "http://localhost:3000/edit_client/login") {
-    pagina = <><h1>ESSA PÁGINA É PARA EDITAR A SUA CONTA</h1><ClientEdit /></>
-  } else if (`${vallink}` === "http://localhost:3000/edit_client/edit") {
+  } else if (`${vallink}` === "http://localhost:3000/edit_client") {
     pagina = <><h1>ESSA PÁGINA É PARA EDITAR A SUA CONTA</h1><ClientEdit /></>
   } else if (`${vallink}` === "http://localhost:3000/del_client") {
     pagina = <><h1>ESSA PÁGINA É PARA DELETAR A SUA CONTA</h1><ClientDelete /></>

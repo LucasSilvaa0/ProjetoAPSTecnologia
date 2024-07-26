@@ -70,32 +70,12 @@ app.delete("/del_user", async (req: Request, res: Response) => {
   res.send("OK")
 });
 
-app.post("/edit_user/login", async (req: Request, res: Response) => {
-  const user = req.body;
-
-  console.log("---------------------")
-  console.log(req.body)
-  console.log(user)
-  console.log(user.email, user.senha)
-  console.log("---------------------")
-
-  login(user.email, user.senha, (err:any, result:any) => {
-    if (err) {
-      console.log('Erro ao buscar usuário:', err);
-    }
-    if (!result) {
-      console.log('Usuário não encontrado');
-    }
-    console.log(`Usuário aqui: ${result[0]}`)
-    return res.status(200).json(result[0])
-  });
-
-})
-
-app.put("/edit_user/edit", async (req: Request, res: Response) => {
+app.put("/edit_user", async (req: Request, res: Response) => {
   const dados = req.body
+
+  console.log(dados)
   
-  var retorno = await atualizar(dados.email, dados.senha, dados.coluna, dados.novo_dado)
+  var retorno = await atualizar(dados.email, dados.senha, dados.coluna, dados.novoDado)
   
   if (retorno === "OK") {
     res.send("OK")
