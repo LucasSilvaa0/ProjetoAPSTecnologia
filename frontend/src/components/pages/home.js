@@ -8,7 +8,7 @@ function Botoes() {
       <LinkButton text="Lista de clientes" url="list_client" />
       <br />
       <LinkButton text="Remover cliente" url="del_client" />
-      <LinkButton text="Editar cliente" url="edit_client" />
+      <LinkButton text="Editar cliente" url="edit_client/login" />
     </>
   );
 }

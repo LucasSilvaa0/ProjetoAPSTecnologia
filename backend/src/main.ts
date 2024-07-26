@@ -1,8 +1,9 @@
 import express, { type Request, type Response, type Application } from "express";
 import { zodMiddleware } from "./middlewares/zod.middleware";
 import { UserSchema, User } from "./models"
-import { fetchCep, validateCNPJ, newClient, delClient } from "./functions"
+import { fetchCep, validateCNPJ, newClient, delClient, login, atualizar } from "./functions"
 import { z } from "zod";
+import connection from "./db";
 
 const app: Application = express();
 const bodyParser = require('body-parser');
@@ -68,6 +69,55 @@ app.delete("/del_user", async (req: Request, res: Response) => {
   delClient(user.email, user.senha)
   res.send("OK")
 });
+
+app.post("/edit_user/login", async (req: Request, res: Response) => {
+  const user = req.body;
+
+  console.log("---------------------")
+  console.log(req.body)
+  console.log(user)
+  console.log(user.email, user.senha)
+  console.log("---------------------")
+
+  login(user.email, user.senha, (err:any, result:any) => {
+    if (err) {
+      console.log('Erro ao buscar usuário:', err);
+    }
+    if (!result) {
+      console.log('Usuário não encontrado');
+    }
+    console.log(`Usuário aqui: ${result[0]}`)
+    return res.status(200).json(result[0])
+  });
+
+})
+
+app.put("/edit_user/edit", async (req: Request, res: Response) => {
+  const dados = req.body
+  
+  var retorno = await atualizar(dados.email, dados.senha, dados.coluna, dados.novo_dado)
+  
+  if (retorno === "OK") {
+    res.send("OK")
+  }
+})
+
+app.get("/list_user", async (req: Request, res: Response) => {
+  try {
+      connection.query("SELECT * FROM users", [], (err, result) => {
+          if (err) {
+              console.log("Deu erro viu: ", [err, result])
+              return "ERRO"
+          }
+          return res.json(result)
+      })
+  } catch (e) {
+      console.log("deu erro")
+      return "ERRO"
+  } finally {
+      return "OK"
+  }
+})
 
 app.use(zodMiddleware);
 

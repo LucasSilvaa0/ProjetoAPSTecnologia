@@ -1,0 +1,11 @@
+.Lista {
+    background-color: white;
+    text-align: left;
+}
+
+.Usuario {
+    color: yellow;
+    font-size: 25px;
+    background-color: rgb(69, 61, 61);
+    height: 40px;
+}
