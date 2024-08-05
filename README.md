@@ -1,7 +1,7 @@
 This is the project made by me to compete for the job in "APS Tecnologia". I made this website being the fullstack developer using ReactJS, TypeScript and ZOD in Frontend and using TypeScript, Express and ZOD in backend.
 The project is a website to register people using email, password, phone number, CNPJ and CEP. To make these, I had to create a validation field in backend to test if the CEP and CNPJ really exist and are valid.
 
-There are some pages in the website. Let's se.
+There are some pages in the website. Let's see.
 
 Home:
 ![image](https://github.com/user-attachments/assets/1287bf46-45a6-4afe-9ca0-d0d7584427a5)
